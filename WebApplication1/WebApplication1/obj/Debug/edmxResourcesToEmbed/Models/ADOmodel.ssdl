@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="civapiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Class">
+    <Key>
+      <PropertyRef Name="ClassCode" />
+    </Key>
+    <Property Name="ClassCode" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Building" Type="varchar" MaxLength="2" />
+    <Property Name="RoomNo" Type="int" />
+  </EntityType>
+  <EntityType Name="Computer">
+    <Key>
+      <PropertyRef Name="Number" />
+      <PropertyRef Name="Building" />
+      <PropertyRef Name="RoomNo" />
+    </Key>
+    <Property Name="Number" Type="int" Nullable="false" />
+    <Property Name="AssembledYear" Type="int" />
+    <Property Name="Building" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="RoomNo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="Building" />
+      <PropertyRef Name="RoomNo" />
+    </Key>
+    <Property Name="Building" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="RoomNo" Type="int" Nullable="false" />
+    <Property Name="Capacity" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Room_Class">
+    <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+    <End Role="Class" Type="Self.Class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="Building" />
+        <PropertyRef Name="RoomNo" />
+      </Principal>
+      <Dependent Role="Class">
+        <PropertyRef Name="Building" />
+        <PropertyRef Name="RoomNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Room_Computer">
+    <End Role="Room" Type="Self.Room" Multiplicity="1" />
+    <End Role="Computer" Type="Self.Computer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="Building" />
+        <PropertyRef Name="RoomNo" />
+      </Principal>
+      <Dependent Role="Computer">
+        <PropertyRef Name="Building" />
+        <PropertyRef Name="RoomNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="civapiModelStoreContainer">
+    <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Computer" EntityType="Self.Computer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Room_Class" Association="Self.FK_Room_Class">
+      <End Role="Room" EntitySet="Room" />
+      <End Role="Class" EntitySet="Class" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Room_Computer" Association="Self.FK_Room_Computer">
+      <End Role="Room" EntitySet="Room" />
+      <End Role="Computer" EntitySet="Computer" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

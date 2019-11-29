@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="civapiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Computer">
+    <Key>
+      <PropertyRef Name="Number" />
+      <PropertyRef Name="Building" />
+      <PropertyRef Name="RoomNo" />
+    </Key>
+    <Property Name="Number" Type="Int32" Nullable="false" />
+    <Property Name="AssembledYear" Type="Int32" />
+    <Property Name="Building" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RoomNo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Room" Relationship="Self.FK_Room_Computer" FromRole="Computer" ToRole="Room" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="Building" />
+      <PropertyRef Name="RoomNo" />
+    </Key>
+    <Property Name="Building" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RoomNo" Type="Int32" Nullable="false" />
+    <Property Name="Capacity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Computers" Relationship="Self.FK_Room_Computer" FromRole="Room" ToRole="Computer" />
+  </EntityType>
+  <Association Name="FK_Room_Computer">
+    <End Role="Room" Type="Self.Room" Multiplicity="1" />
+    <End Role="Computer" Type="Self.Computer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="Building" />
+        <PropertyRef Name="RoomNo" />
+      </Principal>
+      <Dependent Role="Computer">
+        <PropertyRef Name="Building" />
+        <PropertyRef Name="RoomNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="civapiEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Computers" EntityType="Self.Computer" />
+    <EntitySet Name="Rooms" EntityType="Self.Room" />
+    <AssociationSet Name="FK_Room_Computer" Association="Self.FK_Room_Computer">
+      <End Role="Room" EntitySet="Rooms" />
+      <End Role="Computer" EntitySet="Computers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

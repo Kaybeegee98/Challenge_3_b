@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="civapiModelStoreContainer" CdmEntityContainer="civapiEntities2">
+    <EntitySetMapping Name="Classes">
+      <EntityTypeMapping TypeName="civapiModel.Class">
+        <MappingFragment StoreEntitySet="Class">
+          <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Building" ColumnName="Building" />
+          <ScalarProperty Name="RoomNo" ColumnName="RoomNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Computers">
+      <EntityTypeMapping TypeName="civapiModel.Computer">
+        <MappingFragment StoreEntitySet="Computer">
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="AssembledYear" ColumnName="AssembledYear" />
+          <ScalarProperty Name="Building" ColumnName="Building" />
+          <ScalarProperty Name="RoomNo" ColumnName="RoomNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rooms">
+      <EntityTypeMapping TypeName="civapiModel.Room">
+        <MappingFragment StoreEntitySet="Room">
+          <ScalarProperty Name="Building" ColumnName="Building" />
+          <ScalarProperty Name="RoomNo" ColumnName="RoomNo" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
